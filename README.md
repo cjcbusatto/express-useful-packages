@@ -2,6 +2,48 @@
 
 A list of useful packages to develop an ExpressJS application
 
+## [winston](https://github.com/winstonjs/winston)
+
+winston is designed to be a simple and universal logging library with support for multiple transports. A transport is essentially a storage device for your logs. Each winston logger can have multiple transports configured at different levels (see: Logging levels). For example, one may want error logs to be stored in a persistent remote location (like a database), but all logs output to the console or a local file.
+
+It provides support (extensions packages can be required) to different tranports like Console, File, HTTP, [MongoDB](https://www.mongodb.com/), [CouchDB](http://couchdb.apache.org/), [Redis](https://redis.io/), [Loggly](https://www.loggly.com/)
+
+### Installation
+
+```bash
+$ npm install winston
+```
+
+### Usage with File
+
+```js
+const winston = require('winston');
+
+// Set the transport to file
+winston.add(winston.transport.File, { filename: 'logfile.log' });
+
+// Logging level methods
+winston.log();
+winston.error();
+winston.warn();
+winston.info();
+winston.verbose();
+winston.debug();
+winston.silly();
+```
+
+# Usage with MongoDB
+
+```js
+const winston = require('winston');
+require('wisnton-mongodb'); // npm install winston-mongodb
+
+winston.add(winston.transport.MongoDB, {
+  db: 'mongodb://localhost/'
+  level: 'info' // Only error, warning and info messages are logged
+});
+```
+
 ## [nodemon](https://nodemon.io/)
 
 Monitor any changes in the source code and automatically restart the server. Useful for development.
