@@ -84,6 +84,49 @@ const result = Joi.validate({ username: 'abc', birthyear: 1994 }, schema);
 Joi.validate({ username: 'abc', birthyear: 1994 }, schema, function(err, value) {}); // err === null -> valid
 ```
 
+## [express-async-errors](https://github.com/davidbanham/express-async-errors#readme)
+
+This is a very minimalistic and unintrusive hack. Instead of patching all methods on an express Router, it wraps the Layer#handle property in one place, leaving all the rest of the express guts intact.
+
+The idea is that you require the patch once and then use the 'express' lib the usual way in the rest of your application.
+
+### Installation
+
+```bash
+$ npm install express-async-errors
+```
+
+### Usage
+
+```js
+const express = require('express');
+require('express-async-errors');
+const User = require('./models/user');
+const app = express();
+
+app.get('/users', async (req, res) => {
+    const users = await User.findAll();
+    res.send(users);
+});
+
+app.use(async (req, res) => {
+    const user = await User.findByToken(req.get('authorization'));
+
+    if (!user) throw Error('access denied');
+});
+
+app.use((err, req, res, next) => {
+    if (err.message === 'access denied') {
+        res.status(403);
+        res.json({ error: err.message });
+    }
+
+    logger.error(err);
+
+    next(err);
+});
+```
+
 ## [config](https://github.com/lorenwest/node-config)
 
 ### Installation
