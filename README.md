@@ -32,7 +32,7 @@ winston.debug();
 winston.silly();
 ```
 
-# Usage with MongoDB
+### Usage with MongoDB
 
 ```js
 const winston = require('winston');
@@ -256,3 +256,45 @@ jwt.verify(token, getKey, options, function(err, decoded) {
     console.log(decoded.foo); // bar
 });
 ```
+
+## [husky](https://www.npmjs.com/package/husky)
+
+Husky can prevent bad git commit, git push and more 🐶 woof!
+
+### Installation
+
+```bash
+$ npm install husky --save-dev
+
+# package.json
+// package.json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test",
+      "...": "..."
+    }
+  }
+}
+```
+
+### Usage
+```
+$ git add --all
+$ git commit -m "Testing Husky!"
+husky > pre-commit (node v12.12.0)
+
+> project@0.6.8 test /project
+> jest ./tests
+
+ PASS  tests/app.test.js
+ PASS  tests/index.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+
+[NID-87 9482937] Testing Husky!
+ 2 files changed, 214 insertions(+)
+ ```
