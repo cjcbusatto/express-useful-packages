@@ -2,6 +2,26 @@
 
 A list of useful packages to develop an ExpressJS application
 
+## [compression]()
+
+### Installation
+
+```bash
+$ npm install compression
+```
+
+### Usage
+
+## [helmet]()
+
+### Installation
+
+```bash
+$ npm install compression
+```
+
+### Usage
+
 ## [winston](https://github.com/winstonjs/winston)
 
 winston is designed to be a simple and universal logging library with support for multiple transports. A transport is essentially a storage device for your logs. Each winston logger can have multiple transports configured at different levels (see: Logging levels). For example, one may want error logs to be stored in a persistent remote location (like a database), but all logs output to the console or a local file.
@@ -18,6 +38,17 @@ $ npm install winston
 
 ```js
 const winston = require('winston');
+
+// Handle exceptions
+winston.handleExceptions(
+    new winston.tranports.Console({ colorize: true, prettyPrint: true }),
+    new winston.transports.File({ filename: 'exceptions.log' })
+);
+
+// WE GOT AN UNHANDLED REJECTION
+process.on('unhandledRejection', (ex) => {
+    throw ex;
+});
 
 // Set the transport to file
 winston.add(winston.transport.File, { filename: 'logfile.log' });
